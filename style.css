@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  padding: 20px;
+}
+
+.field {
+  width: 100%;
+  max-width: 280px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cell {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  background-color: rgb(253, 220, 159);
+}
+
+.cell_black {
+  background-color: rgb(65, 64, 64);
+}
+
+.cell_active:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgba(191, 253, 245, 0.295);
+}
+
+.cell__figure_black:before,
+.cell__figure_white:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+}
+
+.cell__figure_black:before {
+  background-color: black;
+}
+
+.cell__figure_white:before {
+  background-color: white;
+}
