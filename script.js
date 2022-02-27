@@ -3,6 +3,8 @@ const template = templateFragment.querySelector('div');
 const fragment = document.createDocumentFragment();
 const field = document.querySelector('.field');
 
+const COLORFIGURE = ['cell__figure_white', 'cell__figure_black']
+
 const moveFigure = (colorFigure, e) =>{
   const x = e.target.dataset.x;
   const y = e.target.dataset.y;
@@ -11,13 +13,15 @@ const moveFigure = (colorFigure, e) =>{
     //удалить все фигуры которые уже стоят
     allCell.map(el => {
       if(el.classList.contains(`${colorFigure}`)) {
-        el.classList.remove(`${colorFigure}`, 'cell__figure')
+        el.classList.remove(`${colorFigure}`, 'cell__figure');
       }
     })
 
     //находим нужную клетку на доске и ставим новую фигуру
     const newCellFigure = field.querySelector(`.cell[data-x="${x}"][data-y="${y}"]`);
     newCellFigure.classList.add('cell__figure', `${colorFigure}`);
+
+    //вешаем только на новую ячейку
     newCellFigure.addEventListener('click', getMove);
   }
 
@@ -30,23 +34,20 @@ const getMove = (event) => {
   const x = event.target.dataset.x;
   const y = event.target.dataset.y;
 
-  // allCell = Array.from(document.getElementsByClassName('cell'));
-
   let cellX = allCell.filter(cell => cell.getAttribute('data-x') == x);
   let cellY = allCell.filter(cell => cell.getAttribute('data-y') == y);
-
 
   //удаляем все активные клетки, если кликнули мимо
   allCell.map(cell => cell.classList.remove('cell_active'));
   allCell.map(cell => cell.removeEventListener('click', moveFigure));
-  // allCell.map(cell => cell.removeEventListener('click', getMove));
-
 
   const allCellActive = [];
 
   //если кликнули по ладье
 if(event.target.classList.contains('cell__figure')) {
-  const colorFigure = event.target.classList[3];
+  //находим цвет ладьи
+  let classFigure = event.target.classList.value.split(' ');
+  let colorFigure = classFigure.find(elem => elem == COLORFIGURE[0] || elem == COLORFIGURE[1])
 
   //проверка на препядствие в одну сторону по X
   for(i=+y+1; i<8; i++){
@@ -88,7 +89,8 @@ if(event.target.classList.contains('cell__figure')) {
     }
   }
 
-  //на все активные клетки вешаем обработчик клика
+  //удаляум со всех ячеек и вешаем только на активные обработчик клика
+  allCell.map(cell => cell.removeEventListener('click', moveFigure));
   allCellActive.forEach(el => el.addEventListener('click', (e) => moveFigure(colorFigure, e)));
 }
 }
