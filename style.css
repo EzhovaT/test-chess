@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
 }
@@ -7,22 +13,68 @@ body {
   padding: 20px;
 }
 
+@media (min-width:800px){
+  .container{
+    padding: 40px;
+  }
+}
+
 .field {
   width: 100%;
   max-width: 280px;
   display: flex;
   flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+@media (min-width:800px){
+  .field {
+    max-width: 480px;
+  }
+}
+
+@media (min-width:1300px){
+  .field {
+    max-width: 560px;
+  }
+}
+
+@media (min-width:1920px){
+  .field {
+    max-width: 640px;
+  }
 }
 
 .cell {
   position: relative;
   width: 35px;
   height: 35px;
-  background-color: rgb(253, 220, 159);
+  background-color: rgb(255 234 197);
+}
+
+@media (min-width:800px){
+  .cell {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (min-width:1300px){
+  .cell {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@media (min-width:1920px){
+  .cell {
+    width: 80px;
+    height: 80px;
+  }
 }
 
 .cell_black {
-  background-color: rgb(65, 64, 64);
+  background-color: rgb(83, 83, 83);
 }
 
 .cell_active:before {
@@ -38,7 +90,9 @@ body {
 .cell__figure_white:before {
   content: '';
   position: absolute;
-  top: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 80%;
   height: 80%;
   border-radius: 50%;
