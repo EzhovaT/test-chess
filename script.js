@@ -5,7 +5,9 @@ const field = document.querySelector('.field');
 
 const COLORFIGURE = ['cell__figure_white', 'cell__figure_black']
 
-const moveFigure = (colorFigure, e) =>{
+let colorFigure;
+
+const moveFigure = (e) =>{
   const x = e.target.dataset.x;
   const y = e.target.dataset.y;
 
@@ -47,7 +49,7 @@ const getMove = (event) => {
 if(event.target.classList.contains('cell__figure')) {
   //находим цвет ладьи
   let classFigure = event.target.classList.value.split(' ');
-  let colorFigure = classFigure.find(elem => elem == COLORFIGURE[0] || elem == COLORFIGURE[1])
+  colorFigure = classFigure.find(elem => elem == COLORFIGURE[0] || elem == COLORFIGURE[1]);
 
   //проверка на препядствие в одну сторону по X
   for(i=+y+1; i<8; i++){
@@ -91,7 +93,7 @@ if(event.target.classList.contains('cell__figure')) {
 
   //удаляум со всех ячеек и вешаем только на активные обработчик клика
   allCell.map(cell => cell.removeEventListener('click', moveFigure));
-  allCellActive.forEach(el => el.addEventListener('click', (e) => moveFigure(colorFigure, e)));
+  allCellActive.forEach(el => el.addEventListener('click', (e) => moveFigure(e)));
 }
 }
 
